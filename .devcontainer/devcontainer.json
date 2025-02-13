@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/python
 {
-	"name": "GuideScanner",
+	"name": "MySecondWebApp",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	// "image": "mcr.microsoft.com/devcontainers/python:1-3.12",
 
@@ -9,7 +9,6 @@
 		"dockerfile": "Dockerfile",
 		"context": "../"
 	},
-	"forwardPorts": [8000],
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
 		"ghcr.io/devcontainers/features/azure-cli:1": {},  					// azure-cli
@@ -26,7 +25,7 @@
 				"ms-toolsai.vscode-jupyter-cell-tags",
 				"ms-toolsai.vscode-jupyter-powertoys",
 				"github.copilot",
-		                "github.copilot-chat"
+                "github.copilot-chat"
 			]
 		},
 	},
@@ -45,8 +44,7 @@
 	// },
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "pip3 install -r src/requirements.txt &&  pip3 install -r src/requirements-dev.txt"
-	// "postCreateCommand": "pip3 install -r src/requirements-dev.txt"
+	"postCreateCommand": "pip3 install -r src/requirements.txt &&  pip3 install -r src/requirements-dev.txt"
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"

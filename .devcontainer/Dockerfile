@@ -1,23 +1,33 @@
-FROM mcr.microsoft.com/devcontainers/python:1-3.12
+FROM mambaorg/micromamba:0.15.3
+USER root
 
 RUN apt update -y
 RUN apt upgrade -y
+RUN apt-get install -y curl
+RUN curl -sL https://aka.ms/InstallAzureCLIDeb | /bin/bash
 
-RUN pip install --upgrade pip
+RUN  mkdir /app
+RUN chmod -R 777 /app
 
-EXPOSE 8000
+WORKDIR /app
+USER micromamba
+COPY ./src/app_conda_env.yml /opt/demo_azure/app_conda_env.yml
 
-RUN  mkdir /mysecondcontainerapp
-WORKDIR /mysecondcontainerapp
+EXPOSE 8501
+HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
 
-# COPY src/requirements.txt ./requirements.txt
-# RUN pip3 install -r requirements.txt
+COPY ./src/app_conda_env.yml .
 
-RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+RUN micromamba install -y -n base -f app_conda_env.yml && micromamba clean --all --yes
+RUN pip install streamlit-aggrid~=1.0.5  
 
-# ADD src/app app
-RUN mkdir output
+COPY ./src ./src
 
+WORKDIR /app/src
+USER root
 
-# TODO: change according to the app's final configuration
-# CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+RUN chmod a+x run.py
+RUN chmod a+x run_app.sh
+
+CMD ["streamlit", "run", "webapp/app.py", "--server.port=8501", "--server.address=0.0.0.0", "--server.enableWebsocketCompression=false"]
+

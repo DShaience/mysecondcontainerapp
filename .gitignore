@@ -1,0 +1,7 @@
+.idea/
+data/
+config/*
+src/__pycache__/
+src/utils/__pycache__/
+src/webapp/__pycache__/
+src/webapp/llm_config.json

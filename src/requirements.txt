@@ -1,0 +1,8 @@
+openai
+azure-identity
+pillow~=10.4
+
+# For streamlit app
+numpy~=1.26
+pandas~=2.1
+streamlit~=1.34

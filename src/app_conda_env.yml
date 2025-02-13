@@ -1,0 +1,14 @@
+name: sensors_analyzer
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11.9
+  - pillow~=10.4
+  - numpy~=1.26
+  - pandas~=2.1
+  - streamlit~=1.34
+  - openai
+  - azure-identity
+  - xlsxwriter~=3.2
+  - piexif~=1.1.3
